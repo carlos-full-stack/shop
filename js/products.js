@@ -1,4 +1,4 @@
-export var products = [
+var products = [
     {
          id: 1,
          name: 'cooking oil',
