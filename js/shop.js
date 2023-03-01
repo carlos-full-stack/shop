@@ -8,23 +8,34 @@ var total = 0;
 
 // Exercise 1
 function buy(id) {
-    products.forEach(element => { 
+    products.forEach(element => {
+        
 
         if (element["id"] == id) {
 
             const newElement =  [ element["id"], element["name"], element["price"], element["type"], element["offer"] ];
             cartList.push(newElement)
 
-           console.log(cartList);
+            total++;
+
+            updateChartProducts()
         }
    
     });
+}
+
+function updateChartProducts() {
+
+    document.getElementById("count_product").innerHTML = total;
+
 }
 
 
 
 // Exercise 2
 function cleanCart() {
+
+
 
 }
 
