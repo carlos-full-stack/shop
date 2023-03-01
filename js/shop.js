@@ -1,8 +1,3 @@
-
-import  {
-    products
-} from './products.js';
-
 // Array with products (objects) added directly with push(). Products in this array are repeated.
 var cartList = [];
 
@@ -13,9 +8,20 @@ var total = 0;
 
 // Exercise 1
 function buy(id) {
-    // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cartList array
+    products.forEach(element => { 
+
+        if (element["id"] == id) {
+
+            const newElement =  [ element["id"], element["name"], element["price"], element["type"], element["offer"] ];
+            cartList.push(newElement)
+
+           console.log(cartList);
+        }
+   
+    });
 }
+
+
 
 // Exercise 2
 function cleanCart() {
