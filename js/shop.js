@@ -9,7 +9,6 @@ var total = 0;
 // Exercise 1
 function buy(id) {
     products.forEach(element => {
-        
 
         if (element["id"] == id) {
 
@@ -35,13 +34,11 @@ function updateChartProducts() {
 // Exercise 2
 function cleanCart() {
 
+    if (total != 0 ) {
+        
+        document.getElementById("count_product").innerHTML = 0;
+    }
 
-
-}
-
-// Exercise 3
-function calculateTotal() {
-    // Calculate total price of the cart using the "cartList" array
 }
 
 // Exercise 4
