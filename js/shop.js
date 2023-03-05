@@ -1,37 +1,50 @@
-// Array with products (objects) added directly with push(). Products in this array are repeated.
 var cartList = [];
-
-// Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
-var cart = [];
 
 var total = 0;
 
-// Exercise 1
 function buy(id) {
     products.forEach(element => {
 
-        if (element["id"] == id) {
+        if (element["id"] === id) {
 
-            const newElement =  [ element["id"], element["name"], element["price"], element["type"], element["offer"] ];
-            cartList.push(newElement)
+            if ( cartList.find( product => product.id === id ) ) {
+
+                var productIndex = cartList.findIndex((product => product.id === id))
+                cartList[productIndex]["qty"]++;
+
+            } else {
+
+                const newElement =     
+
+                {
+                    "id": element["id"],
+                    "name": element["name"],
+                    "price": element["price"],
+                    "qty": 1, 
+                    "type": element["type"],
+                    "offer": element["offer"] 
+                };
+                
+                cartList.push(newElement);
+            }
+
+            console.log(cartList);
 
             total++;
 
-            updateChartProducts()
+            updateCartProducts()
         }
    
     });
 }
 
-function updateChartProducts() {
+function updateCartProducts() {
 
     document.getElementById("count_product").innerHTML = total;
 
 }
 
 
-
-// Exercise 2
 function cleanCart() {
 
     if (total != 0 ) {
@@ -40,12 +53,17 @@ function cleanCart() {
     }
 
 }
+function open_modal() {
 
-// Exercise 4
-function generateCart() {
-    // Using the "cartlist" array that contains all the items in the shopping cart, 
-    // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
-}
+
+    if (cartList.length == 0) {
+
+        document.getElementById("cart_list").innerHTML = "Tu carrito esta vacio";
+    }
+
+    }
+
+
 
 // Exercise 5
 function applyPromotionsCart() {
