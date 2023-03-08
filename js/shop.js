@@ -55,14 +55,59 @@ function cleanCart() {
 }
 function open_modal() {
 
+    if (cartList.length === 0) {
 
-    if (cartList.length == 0) {
+        console.log("tu carrito esta vacio");
+        document.log(cartList.length);
+    
+    } else {
 
-        document.getElementById("cart_list").innerHTML = "Tu carrito esta vacio";
+        var productTable = document.getElementById("products");
+        var tableBody = document.createElement("tbody");
+
+
+        document.querySelectorAll('.data-row').forEach(row => row.remove());
+
+        cartList.forEach ( product => {
+
+            var tr = document.createElement('tr');
+            tr.classList.add('data-row');
+            
+            var td = document.createElement('td');
+            td.innerText = product.name;
+            tr.appendChild(td);
+
+            var td = document.createElement('td');
+            td.innerText = product.price;
+            tr.appendChild(td);
+
+            var td = document.createElement('td');
+            td.innerText = product.qty;
+            tr.appendChild(td);
+
+            var td = document.createElement('td');
+            td.innerText = (product.price * product.qty) ;
+            tr.appendChild(td);
+
+            tableBody.appendChild(tr);
+            
+            
+        });
+
+        productTable.appendChild(tableBody);
+        
+        console.log(cartList)
+
+        }
+
     }
 
-    }
 
+
+    function closeModal() {
+
+        document.getElementById("tbody").remove;
+    }
 
 
 // Exercise 5
@@ -89,9 +134,4 @@ function addToCart(id) {
 function removeFromCart(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
-}
-
-function open_modal(){
-	console.log("Open Modal");
-	printCart();
 }
