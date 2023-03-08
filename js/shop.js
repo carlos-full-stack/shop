@@ -57,14 +57,16 @@ function open_modal() {
 
     if (cartList.length === 0) {
 
-        console.log("tu carrito esta vacio");
-        document.log(cartList.length);
+        document.getElementById("msg").innerHTML = "Your cart is empty";
+        console.log("el carrito esta vacio");
     
     } else {
 
+        document.getElementById("msg").innerHTML = "";
+
         var productTable = document.getElementById("products");
         var tableBody = document.createElement("tbody");
-
+        var totalPrice = 0;
 
         document.querySelectorAll('.data-row').forEach(row => row.remove());
 
@@ -89,14 +91,16 @@ function open_modal() {
             td.innerText = (product.price * product.qty) ;
             tr.appendChild(td);
 
+            totalPrice += (product.price * product.qty);
+
             tableBody.appendChild(tr);
             
             
         });
 
         productTable.appendChild(tableBody);
-        
-        console.log(cartList)
+
+        document.getElementById("total-msg").innerHTML = "Total: $<span id='total_price'>" + totalPrice + "</span>";
 
         }
 
