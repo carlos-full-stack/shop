@@ -11,6 +11,7 @@ function buy(id) {
 
                 var productIndex = cartList.findIndex((product => product.id === id))
                 cartList[productIndex]["qty"]++;
+                cartList[productIndex]["subtotal"] += cartList[productIndex]["price"];
 
             } else {
 
@@ -22,16 +23,17 @@ function buy(id) {
                     "price": element["price"],
                     "qty": 1, 
                     "type": element["type"],
-                    "offer": element["offer"] 
+                    "offer": element["offer"],
+                    "subtotal": element["price"],
+
                 };
                 
                 cartList.push(newElement);
             }
 
-            console.log(cartList);
-
             total++;
 
+            applyPromotionsCart()
             updateCartProducts()
         }
    
@@ -58,7 +60,6 @@ function open_modal() {
     if (cartList.length === 0) {
 
         document.getElementById("msg").innerHTML = "Your cart is empty";
-        console.log("el carrito esta vacio");
     
     } else {
 
@@ -88,10 +89,10 @@ function open_modal() {
             tr.appendChild(td);
 
             var td = document.createElement('td');
-            td.innerText = (product.price * product.qty) ;
+            td.innerText = product.subtotal;
             tr.appendChild(td);
 
-            totalPrice += (product.price * product.qty);
+            totalPrice += product.subtotal;
 
             tableBody.appendChild(tr);
             
@@ -107,16 +108,38 @@ function open_modal() {
     }
 
 
-
     function closeModal() {
 
         document.getElementById("tbody").remove;
     }
 
 
-// Exercise 5
+
 function applyPromotionsCart() {
-    // Apply promotions to each item in the array "cart"
+
+
+    cartList.forEach(element => {
+
+        // Si l'usuari compra 3 o més ampolles d'oli, el preu del producte descendeix a 10 euros.
+
+        if (element["id"] === 1 && element["qty"] >= 3 ) 
+        {
+
+            element["price"] = 10;
+            element["subtotal"] = element["price"] * element["qty"];
+         
+        //Quan es compren 10 o més productes per a fer pastís, el seu preu es rebaixa a 2/3.
+        
+        } else if (element["id"] === 3 && element["qty"] >= 10 ) {
+
+            element["price"] = (element["price"] * 2) /3;
+            element["subtotal"] = parseFloat((element["price"] * element["qty"]).toFixed(2));
+
+        }
+
+});
+
+
 }
 
 // Exercise 6
