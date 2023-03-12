@@ -92,6 +92,10 @@ function open_modal() {
             td.innerText = product.subtotal;
             tr.appendChild(td);
 
+            var td = document.createElement('td');
+            td.innerHTML = '<a href="javascript:void(0)" onclick="removeFromCart(' + product.id + ')"><i class="fas fa-minus-circle"></i></a>';
+            tr.appendChild(td);
+
             totalPrice += product.subtotal;
 
             tableBody.appendChild(tr);
@@ -142,23 +146,10 @@ function applyPromotionsCart() {
 
 }
 
-// Exercise 6
-function printCart() {
-    // Fill the shopping cart modal manipulating the shopping cart dom
-}
 
-
-// ** Nivell II **
-
-// Exercise 7
-function addToCart(id) {
-    // Refactor previous code in order to simplify it 
-    // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cart array or update its quantity in case it has been added previously.
-}
-
-// Exercise 8
 function removeFromCart(id) {
-    // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cartList array
+
+    var productIndex = cartList.findIndex((product => product.id === id))   
+    cartList.splice(productIndex, 1)    
+ 
 }
