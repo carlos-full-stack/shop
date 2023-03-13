@@ -70,6 +70,7 @@ function open_modal() {
         var totalPrice = 0;
 
         document.querySelectorAll('.data-row').forEach(row => row.remove());
+        
 
         cartList.forEach ( product => {
 
@@ -149,7 +150,21 @@ function applyPromotionsCart() {
 
 function removeFromCart(id) {
 
-    var productIndex = cartList.findIndex((product => product.id === id))   
-    cartList.splice(productIndex, 1)    
+    var productIndex = cartList.findIndex((product => product.id === id)) 
+    
+    if (cartList[productIndex]["qty"] !== 1 ) {
+        cartList[productIndex]["qty"]--;
+        cartList[productIndex]["subtotal"] -= cartList[productIndex]["price"];
+
+
+    } else {
+        cartList.splice(productIndex, 1)
+        document.querySelectorAll('.data-row').forEach(row => row.remove());
+        document.getElementById("total-msg").innerHTML = "Total: $<span id='total_price'>" + 0 + "</span>";
+    }
+    
+    total--;
+    updateCartProducts()
+    open_modal()
  
 }
