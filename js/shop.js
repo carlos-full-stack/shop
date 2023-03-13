@@ -11,7 +11,11 @@ function buy(id) {
 
                 var productIndex = cartList.findIndex((product => product.id === id))
                 cartList[productIndex]["qty"]++;
-                cartList[productIndex]["subtotal"] += cartList[productIndex]["price"];
+
+                applyPromotionsCart();
+
+                cartList[productIndex]["subtotal"] = cartList[productIndex]["price"] * cartList[productIndex]["qty"] ;
+
 
             } else {
 
@@ -33,7 +37,6 @@ function buy(id) {
 
             total++;
 
-            applyPromotionsCart()
             updateCartProducts()
         }
    
@@ -49,7 +52,7 @@ function updateCartProducts() {
 
 function cleanCart() {
 
-    if (total != 0 ) {
+    if (total !== 0 ) {
         
         document.getElementById("count_product").innerHTML = 0;
     }
@@ -125,26 +128,39 @@ function applyPromotionsCart() {
 
     cartList.forEach(element => {
 
-        // Si l'usuari compra 3 o més ampolles d'oli, el preu del producte descendeix a 10 euros.
 
-        if (element["id"] === 1 && element["qty"] >= 3 ) 
-        {
+        if (element["id"] === 1) {
 
-            element["price"] = 10;
-            element["subtotal"] = element["price"] * element["qty"];
-         
-        //Quan es compren 10 o més productes per a fer pastís, el seu preu es rebaixa a 2/3.
+            if (element["qty"] >= 3) {
+
+                element["price"] = 10;
+
+             } else  {
+
+                element["price"] = 10.5; 
+
+            }
+
+        } 
         
-        } else if (element["id"] === 3 && element["qty"] >= 10 ) {
 
-            element["price"] = (element["price"] * 2) /3;
-            element["subtotal"] = parseFloat((element["price"] * element["qty"]).toFixed(2));
+        if (element["id"] === 3) {
+
+            if (element["qty"] >= 10) {
+
+                element["price"] = parseFloat(((element["price"] * 2) / 3).toFixed(2));
+                element["subtotal"] = (element["price"] * element["qty"]);
+
+            } else {
+
+                element["price"] = 5;
+
+            }
 
         }
 
-});
 
-
+    });
 }
 
 
@@ -154,8 +170,10 @@ function removeFromCart(id) {
     
     if (cartList[productIndex]["qty"] !== 1 ) {
         cartList[productIndex]["qty"]--;
-        cartList[productIndex]["subtotal"] -= cartList[productIndex]["price"];
 
+        applyPromotionsCart()
+
+        cartList[productIndex]["subtotal"] = cartList[productIndex]["price"] * cartList[productIndex]["qty"] ;
 
     } else {
         cartList.splice(productIndex, 1)
