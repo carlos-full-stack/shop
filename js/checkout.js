@@ -82,3 +82,10 @@ if(form) {
 	  
 	  });
 }
+
+function getData() {
+
+	let total = sessionStorage.getItem("total");
+    document.getElementById("count_product").innerHTML = total;
+
+}

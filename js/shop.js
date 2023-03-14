@@ -188,3 +188,10 @@ function removeFromCart(id) {
     open_modal()
  
 }
+
+
+function saveData() {
+
+    sessionStorage.setItem("total", total );
+
+} 
