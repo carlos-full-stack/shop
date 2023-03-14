@@ -15,8 +15,7 @@ function buy(id) {
                 applyPromotionsCart();
 
                 cartList[productIndex]["subtotal"] = cartList[productIndex]["price"] * cartList[productIndex]["qty"] ;
-
-
+            
             } else {
 
                 const newElement =     
@@ -51,11 +50,14 @@ function updateCartProducts() {
 
 
 function cleanCart() {
-
-    if (total !== 0 ) {
         
-        document.getElementById("count_product").innerHTML = 0;
-    }
+    cartList.length = 0;
+    total = 0;
+    document.getElementById("count_product").innerHTML = 0;
+    document.querySelectorAll('.data-row').forEach(row => row.remove());
+    document.getElementById("total-msg").innerHTML = "No products";
+    document.getElementById("msg").innerHTML = "Your cart is empty";
+
 
 }
 function open_modal() {
@@ -135,7 +137,7 @@ function applyPromotionsCart() {
 
                 element["price"] = 10;
 
-             } else  {
+            } else  {
 
                 element["price"] = 10.5; 
 
